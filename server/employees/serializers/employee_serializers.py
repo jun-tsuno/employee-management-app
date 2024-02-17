@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Employees
+from ..models import Employees
 
 class EmployeesSerializer(serializers.ModelSerializer):
   employment_type_display = serializers.SerializerMethodField()

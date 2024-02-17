@@ -6,8 +6,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 
-from .models import Employees
-from .serializers import EmployeesSerializer, EmployeeWriteSerializer
+from ..models import Employees
+from ..serializers import EmployeesSerializer, EmployeeWriteSerializer
 
 # Create your views here.
 
@@ -37,3 +37,17 @@ class EmployeeDetailView(APIView):
     employee = get_object_or_404(Employees, pk=id)
     serializer = EmployeesSerializer(employee)
     return Response({"data": serializer.data})
+
+  def patch(self, request, id):
+    employee = get_object_or_404(Employees, pk=id)
+    serializer = EmployeeWriteSerializer(employee, data=request.data)
+    if serializer.is_valid():
+      employee = serializer.save()
+      read_serializer = EmployeesSerializer(employee)
+      return Response({"data": read_serializer.data})
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+  def delete(self, request, id):
+    employee = get_object_or_404(Employees, pk=id)
+    employee.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
