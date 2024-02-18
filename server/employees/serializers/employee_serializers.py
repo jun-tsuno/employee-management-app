@@ -11,7 +11,7 @@ class EmployeesSerializer(serializers.ModelSerializer):
     model = Employees
     fields = [
       'id',
-      'employee_id',
+      'employee_number',
       'first_name',
       'last_name',
       'tel',
@@ -38,5 +38,5 @@ class EmployeesSerializer(serializers.ModelSerializer):
 class EmployeeWriteSerializer(serializers.ModelSerializer):
   class Meta:
     model = Employees
-    exclude = ['id', 'employee_id', 'updated_at']
-    read_only_fields = ['employee_id']
+    exclude = ['id', 'employee_number', 'updated_at']
+    read_only_fields = ['employee_number']

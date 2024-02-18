@@ -16,8 +16,23 @@ class EmployeesView(APIView):
   permission_classes = [IsAuthenticated]
 
   def get(self, request):
-    employees = Employees.objects.all().order_by('-updated_at')
-    serializer = EmployeesSerializer(employees, many=True)
+    queryset = Employees.objects.all()
+
+    is_on_leave = request.query_params.get('is_on_leave')
+    if is_on_leave is not None:
+      if is_on_leave.lower() in ['true']:
+        queryset = queryset.filter(is_on_leave=True)
+      elif is_on_leave.lower() in ['false']:
+        queryset = queryset.filter(is_on_leave=False)
+
+    employment_type = request.query_params.get('employment_type')
+    if employment_type is not None:
+      queryset = queryset.filter(employment_type=employment_type)
+
+    order_by = request.query_params.get('order_by', '-hired_date')
+    queryset = queryset.order_by(order_by)
+
+    serializer = EmployeesSerializer(queryset, many=True)
     return Response({"data": serializer.data})
 
   def post(self, request):
