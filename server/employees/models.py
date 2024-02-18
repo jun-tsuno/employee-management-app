@@ -34,7 +34,7 @@ class Employees(models.Model):
     ('contract', 'Contract'),
     ('freelance', 'Freelance')
   )
-  employee_id = models.CharField(max_length=80, unique=True)
+  employee_number = models.CharField(max_length=80, unique=True)
   first_name = models.CharField(max_length=50)
   last_name = models.CharField(max_length=50)
   tel = models.CharField(max_length=50, null=True)
@@ -49,7 +49,7 @@ class Employees(models.Model):
 
   def save(self, *args, **kwargs):
     if not self.employee_id:
-      self.employee_id = uuid.uuid4().hex
+      self.employee_number = uuid.uuid4().hex
     super().save(*args, **kwargs)
 
   def __str__(self):
