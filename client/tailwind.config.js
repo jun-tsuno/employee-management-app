@@ -19,6 +19,7 @@ module.exports = {
 				},
 				background: '#dee2e6',
 				green: '#80C636',
+				error: '#F24C3D',
 			},
 			fontFamily: {
 				exo: ['Exo', 'sans-serif'],

@@ -3,10 +3,14 @@ import { useState } from 'react';
 import Input from '@/components/ui/input/Input';
 import Button from '@/components/ui/button/Button';
 import { signIn } from 'next-auth/react';
+import { CustomToaster, showErrorToast } from '@/components/ui/toast/Toast';
+import { useRouter } from 'next/navigation';
 
 const LoginForm = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+
+	const router = useRouter();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -17,8 +21,12 @@ const LoginForm = () => {
 				password: 'random-password',
 				redirect: false,
 			});
-			console.log(res);
-		} catch (error) {}
+
+			if (!res.ok) throw new Error();
+			router.push('/dashboard');
+		} catch (error) {
+			return showErrorToast('Fail to login');
+		}
 	};
 
 	return (
@@ -50,6 +58,8 @@ const LoginForm = () => {
 					Login as a guest
 				</Button>
 			</form>
+
+			<CustomToaster />
 		</>
 	);
 };
