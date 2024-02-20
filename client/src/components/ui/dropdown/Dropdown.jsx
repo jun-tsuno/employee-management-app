@@ -22,11 +22,11 @@ const Dropdown = ({
 			<div ref={wrapperRef} className='w-fit relative'>
 				<button
 					onClick={() => setOpen(!open)}
-					className={`bg-text-secondary flex items-center gap-3 text-white py-1 rounded-lg px-3 ${
+					className={`bg-text-secondary justify-between flex items-center gap-3 text-white py-1 rounded-lg px-3 ${
 						buttonClass ? buttonClass : ''
 					}`}
 				>
-					<span>{values.label || initialText}</span>
+					<span>{values?.value || initialText}</span>
 					<ChevronIcon
 						className={`w-4 h-4 transition-all duration-75 ${
 							open ? 'rotate-90' : '-rotate-90'
@@ -44,9 +44,9 @@ const Dropdown = ({
 							<div
 								key={i}
 								onClick={() => handleOption(option)}
-								className='py-2 px-4'
+								className='py-2 hover:cursor-pointer px-4 hover:bg-primary hover:text-white'
 							>
-								{option.label}
+								{option?.value}
 							</div>
 						))}
 					</div>

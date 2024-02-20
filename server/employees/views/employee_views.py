@@ -29,8 +29,15 @@ class EmployeesView(APIView):
     if employment_type is not None:
       queryset = queryset.filter(employment_type=employment_type)
 
-    order_by = request.query_params.get('order_by', '-hired_date')
-    queryset = queryset.order_by(order_by)
+    order_by = request.query_params.get('order_by', 'dec')
+    if order_by == 'dec':
+      queryset = queryset.order_by('-hired_date')
+    elif order_by == 'asc':
+      queryset = queryset.order_by('hired_date')
+
+    position = request.query_params.get('position')
+    if position is not None:
+      queryset = queryset.filter(position=position)
 
     serializer = EmployeesSerializer(queryset, many=True)
     return Response({"data": serializer.data})
