@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
 			<body>
 				<Providers>
 					<Header />
-					<main className='pt-10 md:pt-14'>{children}</main>
+					<main className='pt-16 md:pt-20'>{children}</main>
 				</Providers>
 			</body>
 		</html>
