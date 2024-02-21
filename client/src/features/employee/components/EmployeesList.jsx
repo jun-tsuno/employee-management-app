@@ -1,6 +1,7 @@
 'use client';
 import { customDateFormatter } from '@/util/date-formatter';
 import { ChevronIcon } from '@public/svgs';
+import Link from 'next/link';
 
 const DataItem = ({ label, children, dataClass }) => {
 	return (
@@ -28,9 +29,12 @@ export const EmployeeCard = ({ employee }) => {
 							{employee.last_name || '-'}
 						</DataItem>
 					</div>
-					<button className='p-1 w-fit hover:brightness-90 h-fit self-center text-white rounded-full bg-primary'>
+					<Link
+						href={`/employees/${employee.id}`}
+						className='p-1 w-fit block hover:brightness-90 h-fit self-center text-white rounded-full bg-primary'
+					>
 						<ChevronIcon className='w-5 h-5 rotate-180' />
-					</button>
+					</Link>
 				</div>
 
 				<div className='flex flex-wrap gap-x-16 gap-y-4'>
@@ -108,7 +112,14 @@ export const EmployeesTable = ({ employees }) => {
 									</TableData>
 									<TableData>{employee.position_name || '-'}</TableData>
 									<TableData>{startedAt || '-'}</TableData>
-									<TableData>Detail</TableData>
+									<TableData>
+										<Link
+											href={`/employees/${employee.id}`}
+											className='block w-fit mx-auto text-xs bg-primary text-white py-1 px-3 rounded-md hover:brightness-90'
+										>
+											<ChevronIcon className='w-4 h-4 rotate-180' />
+										</Link>
+									</TableData>
 								</tr>
 							);
 						})}

@@ -18,7 +18,7 @@ module.exports = {
 					placeholder: '#F5F5F7',
 				},
 				background: '#dee2e6',
-				green: '#80C636',
+				green: '#52b788',
 				error: '#F24C3D',
 			},
 			fontFamily: {

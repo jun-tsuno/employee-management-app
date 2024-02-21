@@ -59,7 +59,7 @@ class EmployeeDetailView(APIView):
   def get(self, request, id):
     employee = get_object_or_404(Employees, pk=id)
     serializer = EmployeesSerializer(employee)
-    return Response({"data": serializer.data})
+    return Response(serializer.data)
 
   def patch(self, request, id):
     employee = get_object_or_404(Employees, pk=id)
@@ -67,7 +67,7 @@ class EmployeeDetailView(APIView):
     if serializer.is_valid():
       employee = serializer.save()
       read_serializer = EmployeesSerializer(employee)
-      return Response({"data": read_serializer.data})
+      return Response(read_serializer.data)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
   def delete(self, request, id):

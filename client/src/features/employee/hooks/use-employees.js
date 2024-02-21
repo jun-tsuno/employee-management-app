@@ -44,3 +44,37 @@ export const useCreateEmployee = () => {
 
 	return { isLoading, createEmployee };
 };
+
+export const useFetchEmployee = (employeeId) =>
+	useSWR(`/employees/${employeeId}`, async (url) => {
+		const res = await nextAPI(url);
+		const result = await res.json();
+		return result;
+	});
+
+export const useDeleteEmployee = () => {
+	const [isLoading, setIsLoading] = useState(false);
+
+	const deleteEmployee = async (employeeId) => {
+		try {
+			const res = await nextAPI(`/employees/${employeeId}`, {
+				method: 'DELETE',
+			});
+
+			setIsLoading(false);
+			const result = await res.json();
+
+			if (!result.deleted) throw new Error(result.error);
+
+			return { deleted: true, error: '' };
+		} catch (error) {
+			setIsLoading(false);
+			return {
+				deleted: false,
+				error: error.message || 'Fail to delete Employee',
+			};
+		}
+	};
+
+	return { isLoading, deleteEmployee };
+};

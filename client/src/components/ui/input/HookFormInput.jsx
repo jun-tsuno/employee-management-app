@@ -75,7 +75,7 @@ export const HookFormCheckbox = React.forwardRef(
 						ref={ref}
 						type='checkbox'
 						name={name}
-						className={` ${className ? className : ''}`}
+						className={`w-5 h-5 ${className ? className : ''}`}
 						{...rest}
 					/>
 					{error && <p>{error.message}</p>}

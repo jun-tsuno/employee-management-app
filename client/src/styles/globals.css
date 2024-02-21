@@ -8,6 +8,10 @@ body {
   @apply font-exo bg-background text-text-primary
 }
 
+button {
+  @apply disabled:cursor-not-allowed
+}
+
 @layer components {
   .section-title {
     @apply text-xl font-bold md:text-2xl lg:md:text-3xl text-text-gray

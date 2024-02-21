@@ -24,6 +24,9 @@ const rules = {
 		},
 		required: 'This field is Required',
 	},
+	required: {
+		required: 'This field is Required',
+	},
 };
 
 const AddEmployeeForm = () => {
@@ -54,7 +57,6 @@ const AddEmployeeForm = () => {
 		const result = await createEmployee(dataToSend);
 
 		if (!result.created) return showErrorToast(result.error);
-
 		reset();
 		showSuccessToast('Successfully Added Employee');
 	};
@@ -66,18 +68,14 @@ const AddEmployeeForm = () => {
 					<HookFormInput
 						label='First Name'
 						placeholder='John'
-						{...register('first_name', {
-							required: 'This field is required',
-						})}
+						{...register('first_name', rules.required)}
 						required
 						error={errors.first_name}
 					/>
 					<HookFormInput
 						label='Last Name'
 						placeholder='Doe'
-						{...register('last_name', {
-							required: 'This field is required',
-						})}
+						{...register('last_name', rules.required)}
 						required
 						error={errors.last_name}
 					/>
@@ -92,9 +90,7 @@ const AddEmployeeForm = () => {
 					<HookFormInput
 						label='Email'
 						placeholder='john@example.com'
-						{...register('email', {
-							required: 'This field is required',
-						})}
+						{...register('email', rules.required)}
 						required
 						className=''
 						error={errors.email}
@@ -141,8 +137,8 @@ const AddEmployeeForm = () => {
 					error={errors.is_on_leave}
 				/>
 
-				<Button type='submit' secondary>
-					Add Employee
+				<Button type='submit' secondary disabled={isLoading}>
+					{isLoading ? 'Submitting...' : 'Add Employee'}
 				</Button>
 			</form>
 
