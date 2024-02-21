@@ -10,5 +10,6 @@ export default withAuth(async function middleware(req) {}, {
 });
 
 export const config = {
-	matcher: ['/dashboard/:path*'],
+	matcher: ['/employees/:path*'],
+	matcher: ['/new-employee/:path*'],
 };

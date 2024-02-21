@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import useClickOutside from '@/hooks/use-click-outside';
 import Link from 'next/link';
 import {
 	HamburgerIcon,
@@ -10,7 +10,7 @@ import {
 } from '@public/svgs';
 
 const menu = [
-	{ href: '/dashboard', title: 'Employees' },
+	{ href: '/employees', title: 'Employees' },
 	{ href: '/departments', title: 'Departments' },
 	{ href: '/evaluation', title: 'Evaluation' },
 ];
@@ -35,20 +35,20 @@ const CustomLink = ({ href, children, icon, className, ...rest }) => {
 };
 
 const HamburgerMenu = () => {
-	const [open, setOpen] = useState(false);
+	const { wrapperRef, open, setOpen } = useClickOutside();
 
 	return (
-		<div className='md:hidden'>
+		<div ref={wrapperRef} className='md:hidden'>
 			<button
 				onClick={() => setOpen(true)}
 				className='relative hover:text-error'
 			>
-				<HamburgerIcon className='w-8 h-8' />
+				<HamburgerIcon className='w-6 h-6' />
 			</button>
 
 			{open && (
 				<div
-					className={`fixed top-10 md:top-14 z-50 h-[100vh] bg-white w-[80%] bg-primary-red duration-75 transition-all max-w-[300px] ${
+					className={`fixed top-0 z-50 h-[100vh] drop-shadow-2xl bg-white w-[80%] bg-primary-red duration-75 transition-all max-w-[300px] ${
 						open ? 'left-0' : '-left-full'
 					}`}
 				>

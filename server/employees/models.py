@@ -48,7 +48,7 @@ class Employees(models.Model):
   updated_at = models.DateTimeField(auto_now=True)
 
   def save(self, *args, **kwargs):
-    if not self.employee_id:
+    if not self.employee_number:
       self.employee_number = uuid.uuid4().hex
     super().save(*args, **kwargs)
 

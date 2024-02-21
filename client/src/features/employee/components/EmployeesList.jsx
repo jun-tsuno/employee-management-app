@@ -38,11 +38,9 @@ export const EmployeeCard = ({ employee }) => {
 						{employee.department_name || '-'}
 					</DataItem>
 					<DataItem label='Type'>
-						{employee.employee_type_display || '-'}
+						{employee.employment_type_display || '-'}
 					</DataItem>
-					<DataItem label='On Leave'>
-						{employee.is_on_leave ? '○' : '-'}
-					</DataItem>
+					<DataItem label='Position'>{employee.position_name || '-'}</DataItem>
 					<DataItem label='Started'>{startedAt || '-'}</DataItem>
 				</div>
 			</div>
@@ -84,7 +82,7 @@ export const EmployeesTable = ({ employees }) => {
 						<TableHead>Last Name</TableHead>
 						<TableHead className='w-[130px]'>Department</TableHead>
 						<TableHead className='w-[130px]'>Type</TableHead>
-						<TableHead className='w-[100px]'>On Leave</TableHead>
+						<TableHead className='w-[100px]'>Position</TableHead>
 						<TableHead>Started</TableHead>
 						<TableHead className='w-[90px]'></TableHead>
 					</tr>
@@ -98,13 +96,17 @@ export const EmployeesTable = ({ employees }) => {
 							);
 							return (
 								<tr key={employee.id} className='bg-white'>
-									<TableData>{employee.first_name || '-'}</TableData>
-									<TableData>{employee.last_name || '-'}</TableData>
+									<TableData className='font-[500]'>
+										{employee.first_name || '-'}
+									</TableData>
+									<TableData className='font-[500]'>
+										{employee.last_name || '-'}
+									</TableData>
 									<TableData>{employee.department_name || '-'}</TableData>
 									<TableData>
 										{employee.employment_type_display || '-'}
 									</TableData>
-									<TableData>{employee.is_on_leave ? '○' : '-'}</TableData>
+									<TableData>{employee.position_name || '-'}</TableData>
 									<TableData>{startedAt || '-'}</TableData>
 									<TableData>Detail</TableData>
 								</tr>

@@ -4,27 +4,35 @@ import Dropdown from '@/components/ui/dropdown/Dropdown';
 import {
 	EmployeeCard,
 	EmployeesTable,
-} from '@/features/dashboard/components/EmployeesList';
+} from '@/features/employee/components/EmployeesList';
 import { EMPLOYEE_TYPE_OPTIONS, POSITION_OPTIONS } from '@/util/constants';
 import OrderDropdown from '@/components/ui/dropdown/OrderDropdown';
-import { useFetchEmployees } from '@/features/dashboard/hooks/use-employees';
+import { useFetchEmployees } from '@/features/employee/hooks/use-employees';
 import { CustomSkelton } from '@/components/ui/skelton/CustomSkelton';
+import { AddEmployeeLink } from '@/components/ui/link/CustomLinks';
 
 const typeOptions = [{ key: '', value: 'All' }, ...EMPLOYEE_TYPE_OPTIONS];
 const positionOptions = [{ key: '', value: 'All' }, ...POSITION_OPTIONS];
 
-const DashboardPage = () => {
+const EmployeesPage = () => {
 	const [sortType, setSortType] = useState(null);
 	const [sortPosition, setSortPosition] = useState(null);
 	const [sortOrder, setSortOrder] = useState(null);
 
-	const { data, isLoading } = useFetchEmployees();
+	const { data, isLoading } = useFetchEmployees({
+		employmentType: sortType?.key,
+		position: sortPosition?.key,
+		orderBy: sortOrder?.key,
+	});
 	const employees = !isLoading && data?.data;
 
 	return (
 		<>
 			<section className='w-full max-w-[1000px] mx-auto'>
-				<h1 className='section-title mb-6'>Employees List</h1>
+				<div className='flex items-center justify-between flex-wrap mb-12'>
+					<h1 className='section-title'>Employees List</h1>
+					<AddEmployeeLink />
+				</div>
 
 				<div className='flex flex-wrap justify-between items-center gap-y-2 mb-4'>
 					<div className='flex gap-3'>
@@ -33,14 +41,14 @@ const DashboardPage = () => {
 							values={sortType}
 							handleSetValue={(option) => setSortType(option)}
 							initialText='Type'
-							buttonClass='w-[100px]'
+							buttonClass='min-w-[100px]'
 						/>
 						<Dropdown
 							options={positionOptions}
 							values={sortPosition}
 							handleSetValue={(option) => setSortPosition(option)}
 							initialText='Position'
-							buttonClass='w-[120px]'
+							buttonClass='min-w-[120px]'
 						/>
 					</div>
 					<div className=''>
@@ -69,4 +77,4 @@ const DashboardPage = () => {
 	);
 };
 
-export default DashboardPage;
+export default EmployeesPage;

@@ -24,7 +24,7 @@ const LoginForm = () => {
 
 			if (!res.ok) throw new Error();
 			router.refresh();
-			router.push('/dashboard');
+			router.push('/employees');
 		} catch (error) {
 			return showErrorToast('Fail to login');
 		}

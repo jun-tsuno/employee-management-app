@@ -3,6 +3,7 @@ import classNames from 'classnames';
 const Button = ({
 	children,
 	primary,
+	secondary,
 	outline,
 	className,
 	type,
@@ -16,6 +17,7 @@ const Button = ({
 		{
 			'bg-primary text-white': primary,
 		},
+		{ 'bg-green text-white': secondary },
 		{
 			'border-[1px]': outline,
 		}

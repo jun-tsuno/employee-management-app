@@ -48,6 +48,7 @@ class EmployeesView(APIView):
       user = serializer.save()
       read_serializer = EmployeesSerializer(user)
       return Response({"data": read_serializer.data})
+    print(serializer.errors)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

@@ -36,7 +36,7 @@ const Dropdown = ({
 
 				{open && (
 					<div
-						className={`absolute bg-white shadow-lg min-w-full ${
+						className={`absolute z-10 bg-white shadow-lg min-w-full ${
 							boxClass ? boxClass : ''
 						}`}
 					>
