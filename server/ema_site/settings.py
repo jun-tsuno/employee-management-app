@@ -110,6 +110,11 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
+REST_FRAMEWORK = {
+  'DEFAULT_PAGINATION_CLASS': 'employees.utils.pagination.CustomPageNumberPagination',
+  'PAGE_SIZE': 15
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 

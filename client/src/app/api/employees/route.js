@@ -10,11 +10,15 @@ export async function GET(req) {
 	const employmentType = searchParams.get('employment_type');
 	const position = searchParams.get('position');
 	const orderBy = searchParams.get('order_by');
+	const page = searchParams.get('page');
+	const size = searchParams.get('size');
 
 	const queryParams = new URLSearchParams();
 	if (employmentType) queryParams.append('employment_type', employmentType);
 	if (position) queryParams.append('position', position);
 	if (orderBy) queryParams.append('order_by', orderBy);
+	if (page) queryParams.append('page', page);
+	if (size) queryParams.append('size', size);
 
 	try {
 		const res = await serverAPI(`/employees?${queryParams}`, {

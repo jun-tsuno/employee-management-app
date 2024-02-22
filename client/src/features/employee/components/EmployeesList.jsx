@@ -127,6 +127,10 @@ export const EmployeesTable = ({ employees }) => {
 						})}
 				</tbody>
 			</table>
+
+			{employees?.length === 0 && (
+				<p className='text-center text-lg my-10 text-text-secondary'>No List</p>
+			)}
 		</div>
 	);
 };

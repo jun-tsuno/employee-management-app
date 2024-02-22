@@ -8,7 +8,7 @@ from rest_framework import status
 
 from ..models import Employees
 from ..serializers import EmployeesSerializer, EmployeeWriteSerializer
-
+from ..utils.pagination import CustomPageNumberPagination
 # Create your views here.
 
 class EmployeesView(APIView):
@@ -39,8 +39,15 @@ class EmployeesView(APIView):
     if position is not None:
       queryset = queryset.filter(position=position)
 
+    paginator = CustomPageNumberPagination()
+    page = paginator.paginate_queryset(queryset, request)
+    if page is not None:
+      serializer = EmployeesSerializer(page, many=True)
+      return paginator.get_paginated_response(serializer.data)
+
     serializer = EmployeesSerializer(queryset, many=True)
     return Response(serializer.data)
+
 
   def post(self, request):
     serializer = EmployeeWriteSerializer(data=request.data)

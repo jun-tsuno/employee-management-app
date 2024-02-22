@@ -24,7 +24,7 @@ export const showErrorToast = (message) => {
 export const CustomToaster = () => {
 	return (
 		<Toaster
-			position='top-right'
+			position='bottom-center'
 			toastOptions={{
 				duration: 3000,
 			}}

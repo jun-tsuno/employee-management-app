@@ -10,11 +10,13 @@ import OrderDropdown from '@/components/ui/dropdown/OrderDropdown';
 import { useFetchEmployees } from '@/features/employee/hooks/use-employees';
 import { CustomSkelton } from '@/components/ui/skelton/CustomSkelton';
 import { AddEmployeeLink } from '@/components/ui/link/CustomLinks';
+import CustomPagination from '@/components/ui/pagenation/CustomPagination';
 
 const typeOptions = [{ key: '', value: 'All' }, ...EMPLOYEE_TYPE_OPTIONS];
 const positionOptions = [{ key: '', value: 'All' }, ...POSITION_OPTIONS];
 
 const EmployeesPage = () => {
+	const [currentPage, setCurrentPage] = useState(1);
 	const [sortType, setSortType] = useState(null);
 	const [sortPosition, setSortPosition] = useState(null);
 	const [sortOrder, setSortOrder] = useState(null);
@@ -23,9 +25,11 @@ const EmployeesPage = () => {
 		employmentType: sortType?.key,
 		position: sortPosition?.key,
 		orderBy: sortOrder?.key,
+		page: currentPage,
 	});
 
-	const employees = !isLoading && data?.data;
+	const employees = !isLoading && data?.data?.results;
+	const totalCount = !isLoading && data?.data?.total_count;
 
 	return (
 		<>
@@ -67,12 +71,20 @@ const EmployeesPage = () => {
 								</Fragment>
 							))
 						) : (
-							<p>No list</p>
+							<p className='my-8 text-lg text-text-secondary text-center'>
+								No list
+							</p>
 						))}
 				</div>
 
 				{isLoading && <CustomSkelton className='h-[180px]' />}
 				{!isLoading && <EmployeesTable employees={employees} />}
+
+				<CustomPagination
+					totalCount={totalCount}
+					setCurrentPage={setCurrentPage}
+					className='mt-8 md:mt-12'
+				/>
 			</section>
 		</>
 	);
