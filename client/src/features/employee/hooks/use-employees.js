@@ -78,3 +78,31 @@ export const useDeleteEmployee = () => {
 
 	return { isLoading, deleteEmployee };
 };
+
+export const useUpdateEmployee = () => {
+	const [isLoading, setIsLoading] = useState(false);
+
+	const updateEmployee = async ({ employeeId, data }) => {
+		try {
+			const res = await nextAPI(`/employees/${employeeId}`, {
+				method: 'PATCH',
+				body: JSON.stringify(data),
+			});
+
+			setIsLoading(false);
+
+			const result = await res.json();
+			if (!result.updated) throw new Error(result.error);
+
+			return { updated: true, error: '' };
+		} catch (error) {
+			setIsLoading(false);
+			return {
+				updated: false,
+				error: error.message || 'Fail to delete Employee',
+			};
+		}
+	};
+
+	return { isLoading, updateEmployee };
+};

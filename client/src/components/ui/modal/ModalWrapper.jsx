@@ -2,7 +2,7 @@ const ModalWrapper = ({ children, className }) => {
 	return (
 		<>
 			<div
-				className={`fixed left-1/2 top-1/2 z-[50] -translate-x-1/2 -translate-y-1/2 rounded-md bg-white  ${
+				className={`fixed max-h-[95vh] overflow-y-auto left-1/2 top-1/2 z-[50] -translate-x-1/2 -translate-y-1/2 rounded-md bg-white  ${
 					className ? className : ''
 				}`}
 			>

@@ -5,9 +5,9 @@ export const AddEmployeeLink = () => {
 		<>
 			<Link
 				href='/new-employee'
-				className='bg-green hover:brightness-90 rounded-md text-white font-[500] py-1 px-3 w-16 block text-center'
+				className='bg-green hover:brightness-90 rounded-md text-white font-[500] py-1 px-3  block text-center'
 			>
-				Add
+				Add Employee
 			</Link>
 		</>
 	);

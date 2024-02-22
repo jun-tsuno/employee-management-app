@@ -30,10 +30,10 @@ export async function GET(req) {
 		}
 
 		const result = await res.json();
-		return Response.json(result);
+		return Response.json({ data: result, error: null });
 	} catch (error) {
 		console.log(error);
-		return new Response(JSON.stringify(null), {
+		return new Response(JSON.stringify({ data: null, error: error.message }), {
 			status: error.statusCode || 500,
 		});
 	}

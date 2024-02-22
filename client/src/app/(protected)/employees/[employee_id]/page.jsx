@@ -1,10 +1,12 @@
 import { fetchEmployee } from '@/features/employee/apis/employee';
 import {
 	DeleteEmployeeModal,
+	EditEmployeeModal,
 	EmployeeDataItem,
 } from '@/features/employee/components/EmployeeDetail';
 import { customDateFormatter } from '@/util/date-formatter';
 import { notFound } from 'next/navigation';
+import { CustomToaster } from '@/components/ui/toast/Toast';
 import Image from 'next/image';
 
 const EmployeeDetailPage = async ({ params }) => {
@@ -19,7 +21,10 @@ const EmployeeDetailPage = async ({ params }) => {
 	return (
 		<>
 			<section>
-				<h1 className='section-title mb-8 lg:mb-12'>Employee Detail</h1>
+				<div className='mb-8 md:mb-12 items-center flex flex-wrap justify-between'>
+					<h1 className='section-title'>Employee Detail</h1>
+					<EditEmployeeModal employee={employee} />
+				</div>
 
 				<div className='flex flex-col gap-4 lg:flex-row'>
 					<figure className='w-[80px] md:w-[120px] md:h-[120px] bg-text-placeholder rounded-full flex items-center justify-center h-[80px] mx-auto'>
@@ -46,7 +51,7 @@ const EmployeeDetailPage = async ({ params }) => {
 												{employee.first_name || '-'}
 											</EmployeeDataItem>
 											<EmployeeDataItem label='Last Name'>
-												{employee.Last_name || '-'}
+												{employee.last_name || '-'}
 											</EmployeeDataItem>
 										</div>
 										<div className='flex flex-wrap gap-y-4 gap-x-12'>
@@ -69,13 +74,13 @@ const EmployeeDetailPage = async ({ params }) => {
 									<div className='space-y-4 px-4 md:px-8 md:space-y-8'>
 										<div className='flex flex-wrap gap-y-4 gap-x-14'>
 											<EmployeeDataItem label='Employment Type'>
-												{employee.employment_type_display || '-'}
+												{employee.employment_type_data?.name || '-'}
 											</EmployeeDataItem>
 											<EmployeeDataItem label='Department'>
-												{employee.department_name || '-'}
+												{employee.department_data?.name || '-'}
 											</EmployeeDataItem>
 											<EmployeeDataItem label='Position'>
-												{employee.position_name || '-'}
+												{employee.position_data?.name || '-'}
 											</EmployeeDataItem>
 										</div>
 										<div className='flex flex-col gap-4 md:flex-row md:gap-12'>
@@ -95,6 +100,8 @@ const EmployeeDetailPage = async ({ params }) => {
 					)}
 				</div>
 			</section>
+
+			<CustomToaster />
 		</>
 	);
 };

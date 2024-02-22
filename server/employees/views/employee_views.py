@@ -40,7 +40,7 @@ class EmployeesView(APIView):
       queryset = queryset.filter(position=position)
 
     serializer = EmployeesSerializer(queryset, many=True)
-    return Response({"data": serializer.data})
+    return Response(serializer.data)
 
   def post(self, request):
     serializer = EmployeeWriteSerializer(data=request.data)

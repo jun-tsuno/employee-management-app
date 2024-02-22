@@ -39,12 +39,14 @@ export const EmployeeCard = ({ employee }) => {
 
 				<div className='flex flex-wrap gap-x-16 gap-y-4'>
 					<DataItem label='Department'>
-						{employee.department_name || '-'}
+						{employee.department_data?.name || '-'}
 					</DataItem>
 					<DataItem label='Type'>
-						{employee.employment_type_display || '-'}
+						{employee.employment_type_data?.name || '-'}
 					</DataItem>
-					<DataItem label='Position'>{employee.position_name || '-'}</DataItem>
+					<DataItem label='Position'>
+						{employee.position_data?.name || '-'}
+					</DataItem>
 					<DataItem label='Started'>{startedAt || '-'}</DataItem>
 				</div>
 			</div>
@@ -106,11 +108,11 @@ export const EmployeesTable = ({ employees }) => {
 									<TableData className='font-[500]'>
 										{employee.last_name || '-'}
 									</TableData>
-									<TableData>{employee.department_name || '-'}</TableData>
+									<TableData>{employee.department_data?.name || '-'}</TableData>
 									<TableData>
-										{employee.employment_type_display || '-'}
+										{employee.employment_type_data?.name || '-'}
 									</TableData>
-									<TableData>{employee.position_name || '-'}</TableData>
+									<TableData>{employee.position_data?.name || '-'}</TableData>
 									<TableData>{startedAt || '-'}</TableData>
 									<TableData>
 										<Link

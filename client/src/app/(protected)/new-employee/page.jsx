@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import AddEmployeeForm from '@/features/employee/components/AddEmployeeForm';
+import { AddEmployeeForm } from '@/features/employee/components/EmployeeForms';
 
 export const metadata = {
 	title: 'Add Employee',

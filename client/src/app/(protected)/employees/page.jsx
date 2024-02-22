@@ -24,6 +24,7 @@ const EmployeesPage = () => {
 		position: sortPosition?.key,
 		orderBy: sortOrder?.key,
 	});
+
 	const employees = !isLoading && data?.data;
 
 	return (
