@@ -28,7 +28,7 @@ export const DepartmentCard = ({ department }) => {
 					<ListItem label='Head'>{department.head_data?.name || '-'}</ListItem>
 				</ul>
 				<div className='mt-2 flex justify-end'>
-					<DeleteDepartmentModal />
+					<DeleteDepartmentModal departmentId={department.id} />
 				</div>
 			</div>
 		</>

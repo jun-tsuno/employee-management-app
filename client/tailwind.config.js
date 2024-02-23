@@ -22,6 +22,7 @@ module.exports = {
 				green: '#52b788',
 				error: '#F24C3D',
 				danger: '#D04848',
+				pink: '#FFEEF4',
 			},
 			fontFamily: {
 				exo: ['Exo', 'sans-serif'],

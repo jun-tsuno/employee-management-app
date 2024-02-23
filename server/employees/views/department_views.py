@@ -44,7 +44,7 @@ class DepartmentDetailView(APIView):
     if serializer.is_valid():
       updated_department = serializer.save()
       read_serializer = DepartmentsSerializer(updated_department)
-      return Response({"data": read_serializer.data})
+      return Response(read_serializer.data)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
   def delete(self, request, id):

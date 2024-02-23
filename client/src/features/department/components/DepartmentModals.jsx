@@ -3,10 +3,14 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { HookFormInput } from '@/components/ui/input/HookFormInput';
 import { OfficeIcon, TrashIcon } from '@public/svgs';
-import { useCreateDepartment } from '../hooks/use-departments';
+import {
+	useCreateDepartment,
+	useDeleteDepartment,
+} from '../hooks/use-departments';
 import { useRouter } from 'next/navigation';
 import ModalWrapper from '@/components/ui/modal/ModalWrapper';
 import Button from '@/components/ui/button/Button';
+import { ErrorLabel } from '@/components/ui/error/Errors';
 
 const addDepartmentRules = {
 	required: { required: 'This field is required' },
@@ -93,10 +97,14 @@ export const AddDepartmentModal = ({ handleClose }) => {
 	);
 };
 
-export const DeleteDepartmentModal = () => {
+export const DeleteDepartmentModal = ({ departmentId }) => {
 	const [open, setOpen] = useState(false);
+	const { isLoading, error, deleteDepartment } = useDeleteDepartment();
 
-	const handleDelete = () => {};
+	const handleDelete = async () => {
+		const result = await deleteDepartment(departmentId);
+		if (result.deleted) return setOpen(false);
+	};
 
 	return (
 		<>
@@ -108,21 +116,32 @@ export const DeleteDepartmentModal = () => {
 			</button>
 
 			{open && (
-				<ModalWrapper className='w-[90%] max-w-[550px] p-4 sm:p-6 md:p-8'>
-					<p className='text-center font-[500] text-text-primary text-xl mb-4'>
+				<ModalWrapper className='w-[90%] flex flex-col gap-4 md:gap-8 max-w-[550px] p-4 sm:p-6 md:p-8'>
+					<p className='text-center font-[500] text-text-primary text-xl'>
 						Are you sure to delete?
 					</p>
 					<p className='text-center'>
 						If you delete it, the data is completely deleted from the database.
 					</p>
-					<div className='mt-8 flex gap-3 justify-evenly max-w-[400px] mx-auto'>
-						<Button onClick={() => setOpen(false)} cancel className='w-full'>
+					<div className='flex w-full gap-3 justify-evenly max-w-[400px] mx-auto'>
+						<Button
+							onClick={() => setOpen(false)}
+							disabled={isLoading}
+							cancel
+							className='w-full'
+						>
 							Cancel
 						</Button>
-						<Button onClick={handleDelete} danger className='w-full'>
+						<Button
+							onClick={handleDelete}
+							disabled={isLoading}
+							danger
+							className='w-full'
+						>
 							Delete
 						</Button>
 					</div>
+					{error && <ErrorLabel message={error} />}
 				</ModalWrapper>
 			)}
 		</>
