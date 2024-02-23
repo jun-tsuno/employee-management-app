@@ -18,14 +18,14 @@ class DepartmentsView(APIView):
   def get(self, request):
     departments = Departments.objects.all()
     serializer = DepartmentsSerializer(departments, many=True)
-    return Response({"data": serializer.data})
+    return Response(serializer.data)
 
   def post(self, request):
     serializer = DepartmentWiteSerializer(data=request.data)
     if serializer.is_valid():
       department = serializer.save()
       read_serializer = DepartmentsSerializer(department)
-      return Response({"data": read_serializer.data}, status=status.HTTP_201_CREATED)
+      return Response(read_serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

@@ -21,7 +21,7 @@ class Positions(models.Model):
 class Departments(models.Model):
   name = models.CharField(max_length=80)
   description = models.CharField(max_length=120)
-  head = models.ManyToManyField('Employees', related_name='head', blank=True)
+  head = models.ForeignKey('Employees', on_delete=models.SET_NULL, null=True, related_name='head', )
 
   def __str__(self):
     return self.name

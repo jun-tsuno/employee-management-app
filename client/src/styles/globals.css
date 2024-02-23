@@ -19,7 +19,7 @@ button {
   @apply border-l-[1px]
 }
 .pagination-item-link {
-  @apply block px-4 py-2 hover:bg-text-placeholder
+  @apply block px-4 py-2 hover:bg-text-placeholder hover:text-primary
 }
 .pagination-prev-link {
   @apply px-4 py-2 hover:bg-text-placeholder

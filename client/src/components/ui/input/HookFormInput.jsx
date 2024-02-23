@@ -1,21 +1,8 @@
 import React from 'react';
-import Dropdown from '../dropdown/Dropdown';
 
 export const HookFormInput = React.forwardRef(
 	(
-		{
-			id,
-			name,
-			type,
-			label,
-			value,
-			placeholder,
-			onChange,
-			required,
-			className,
-			error,
-			...rest
-		},
+		{ id, name, type, label, placeholder, required, className, error, ...rest },
 		ref
 	) => {
 		return (

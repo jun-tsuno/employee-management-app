@@ -10,6 +10,7 @@ module.exports = {
 		extend: {
 			colors: {
 				primary: '#005E86',
+				'primary-tint': '#4d8eaa',
 				secondary: '#40A2D8',
 				text: {
 					primary: '#313131',
@@ -20,6 +21,7 @@ module.exports = {
 				background: '#dee2e6',
 				green: '#52b788',
 				error: '#F24C3D',
+				danger: '#D04848',
 			},
 			fontFamily: {
 				exo: ['Exo', 'sans-serif'],

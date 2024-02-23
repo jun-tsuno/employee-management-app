@@ -1,5 +1,5 @@
 import { nextAPI } from '@/lib/fetchApi';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import useSWR from 'swr';
 
 export const useFetchDepartments = () =>
@@ -21,7 +21,7 @@ export const useDepartmentOptions = () => {
 				const result = await res.json();
 
 				if (result) {
-					const newOptions = result.data?.map((department) => {
+					const newOptions = result?.map((department) => {
 						return { key: department.id, value: department.name };
 					});
 					setOptions(newOptions);
@@ -34,4 +34,37 @@ export const useDepartmentOptions = () => {
 	}, []);
 
 	return { options };
+};
+
+export const useCreateDepartment = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState('');
+
+	const createDepartment = useCallback(async (data) => {
+		setIsLoading(true);
+		setError('');
+
+		try {
+			const res = await nextAPI('/employees/departments', {
+				method: 'POST',
+				body: JSON.stringify(data),
+			});
+
+			setIsLoading(false);
+			const result = await res.json();
+
+			if (!result.created) throw new Error(result.error);
+
+			return { created: result.created, error: '' };
+		} catch (error) {
+			setIsLoading(false);
+			setError(error.message || 'Fail to create Employee');
+			return {
+				created: null,
+				error: error.message,
+			};
+		}
+	});
+
+	return { isLoading, error, createDepartment };
 };
