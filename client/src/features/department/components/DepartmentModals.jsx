@@ -14,6 +14,7 @@ import { SearchEmployee } from '@/features/employee/components/SearchEmployee';
 import { showSuccessToast } from '@/components/ui/toast/Toast';
 import ModalWrapper from '@/components/ui/modal/ModalWrapper';
 import Button from '@/components/ui/button/Button';
+import { SelectHead } from '@/features/employee/components/SelectHead';
 
 const addDepartmentRules = {
 	required: { required: 'This field is required' },
@@ -191,9 +192,13 @@ export const EditHeadModal = ({ department }) => {
 
 			{open && (
 				<ModalWrapper className='w-[90%] flex flex-col h-[80vh] max-w-[550px] p-6 md:py-8 md:px-12'>
-					<p className='text-xl mb-4 md:mb-6 md:text-2xl font-bold text-text-secondary'>
-						Change Head
-					</p>
+					<div className='flex items-center gap-3 mb-4 md:mb-6 '>
+						<PersonIcon className='w-6 h-6 text-text-secondary' />
+						<p className='text-xl md:text-2xl font-bold text-text-secondary'>
+							Change Head
+						</p>
+					</div>
+
 					<section className='space-y-4 my-6'>
 						<h3 className='text-text-secondary'>Current</h3>
 						<ul>
@@ -206,7 +211,7 @@ export const EditHeadModal = ({ department }) => {
 							</li>
 						</ul>
 					</section>
-					<SearchEmployee
+					<SelectHead
 						selectedEmployee={selectedEmployee}
 						setSelectedEmployee={setSelectedEmployee}
 					/>

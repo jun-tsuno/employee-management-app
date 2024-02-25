@@ -17,17 +17,17 @@ class EvaluationView(APIView):
   def get(self, request, employee_id):
     evaluation = get_object_or_404(Evaluation, employee=employee_id)
     serializer = EvaluationSerializer(evaluation)
-    return Response({"data": serializer.data})
+    return Response(serializer.data)
 
   def post(self, request, employee_id):
     if Evaluation.objects.filter(employee_id=employee_id).exists():
-      return Response({"detail": "Evaluation for this employee exists"}, status=status.HTTP_400_BAD_REQUEST)
+      return Response("Evaluation for this employee exists", status=status.HTTP_400_BAD_REQUEST)
 
     serializer = EvaluationWriteSerializer(data=request.data)
     if serializer.is_valid():
       evaluation = serializer.save(employee_id=employee_id)
       read_serializer = EvaluationSerializer(evaluation)
-      return Response({"data": read_serializer.data}, status=status.HTTP_201_CREATED)
+      return Response(read_serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -41,7 +41,7 @@ class EvaluationUpdateView(APIView):
     if serializer.is_valid():
       evaluation = serializer.save()
       read_serializer = EvaluationSerializer(evaluation)
-      return Response({"data": read_serializer.data})
+      return Response(read_serializer.data)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

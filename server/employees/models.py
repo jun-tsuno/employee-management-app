@@ -57,14 +57,14 @@ class Employees(models.Model):
 
 
 class Evaluation(models.Model):
-  employee = models.OneToOneField(Employees, on_delete=models.CASCADE, related_name='evaluation')
+  employee = models.OneToOneField(Employees, on_delete=models.CASCADE, null=True, related_name='evaluation')
   performance = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)], default=0)
   communication = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)], default=0)
   problem_solving = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)], default=0)
   team_work = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)], default=0)
   adaptability = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)], default=0)
   date = models.DateTimeField(auto_now=True)
-  comment = models.TextField(max_length=500, null=True)
+  comment = models.TextField(max_length=500, null=True, blank=True)
 
   def __str__(self):
     return f"Evaluation for {self.employee}"
