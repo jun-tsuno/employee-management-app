@@ -11,6 +11,7 @@ import { useFetchEmployees } from '@/features/employee/hooks/use-employees';
 import { CustomSkelton } from '@/components/ui/skelton/CustomSkelton';
 import { AddEmployeeLink } from '@/components/ui/link/CustomLinks';
 import CustomPagination from '@/components/ui/pagenation/CustomPagination';
+import SearchInput from '@/components/ui/input/SearchInput';
 
 const typeOptions = [{ key: '', value: 'All' }, ...EMPLOYEE_TYPE_OPTIONS];
 const positionOptions = [{ key: '', value: 'All' }, ...POSITION_OPTIONS];
@@ -20,12 +21,14 @@ const EmployeesPage = () => {
 	const [sortType, setSortType] = useState(null);
 	const [sortPosition, setSortPosition] = useState(null);
 	const [sortOrder, setSortOrder] = useState(null);
+	const [searchTerm, setSearchTerm] = useState('');
 
 	const { data, isLoading } = useFetchEmployees({
 		employmentType: sortType?.key,
 		position: sortPosition?.key,
-		orderBy: sortOrder?.key,
+		order: sortOrder?.key,
 		page: currentPage,
+		q: searchTerm,
 	});
 
 	const employees = !isLoading && data?.data?.results;
@@ -40,7 +43,7 @@ const EmployeesPage = () => {
 				</div>
 
 				<div className='flex flex-wrap justify-between items-center gap-y-2 mb-4'>
-					<div className='flex gap-3'>
+					<div className='flex flex-wrap gap-3'>
 						<Dropdown
 							options={typeOptions}
 							values={sortType}
@@ -55,6 +58,7 @@ const EmployeesPage = () => {
 							initialText='Position'
 							buttonClass='min-w-[120px]'
 						/>
+						<SearchInput placeholder='search name...' setTerm={setSearchTerm} />
 					</div>
 					<div className=''>
 						<OrderDropdown values={sortOrder} setValue={setSortOrder} />

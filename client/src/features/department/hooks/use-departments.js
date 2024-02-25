@@ -96,7 +96,7 @@ export const useDeleteDepartment = () => {
 			return { deleted: true, error: '' };
 		} catch (error) {
 			setIsLoading(false);
-			setError(error.message || 'Fail to create Employee');
+			setError(error.message || 'Fail to delete Employee');
 			return {
 				deleted: false,
 				error: error.message,
@@ -105,4 +105,41 @@ export const useDeleteDepartment = () => {
 	});
 
 	return { isLoading, error, deleteDepartment };
+};
+
+export const useUpdateDepartment = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState('');
+	const { mutate } = useSWRConfig();
+	const router = useRouter();
+
+	const updateDepartment = useCallback(async ({ departmentId, data }) => {
+		setIsLoading(true);
+		setError('');
+
+		try {
+			const res = await nextAPI(`/employees/departments/${departmentId}`, {
+				method: 'PATCH',
+				body: JSON.stringify(data),
+			});
+
+			setIsLoading(false);
+			const result = await res.json();
+
+			if (!result.updated) throw new Error(result.error);
+			mutate('/employees/departments');
+			router.refresh();
+
+			return { updated: true, error: '' };
+		} catch (error) {
+			setIsLoading(false);
+			setError(error.message || 'Fail to update Employee');
+			return {
+				updated: false,
+				error: error.message,
+			};
+		}
+	});
+
+	return { isLoading, error, updateDepartment };
 };

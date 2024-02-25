@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
@@ -112,7 +113,10 @@ AUTHENTICATION_BACKENDS = [
 
 REST_FRAMEWORK = {
   'DEFAULT_PAGINATION_CLASS': 'employees.utils.pagination.CustomPageNumberPagination',
-  'PAGE_SIZE': 15
+  'PAGE_SIZE': 15,
+  'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
 }
 
 # Internationalization

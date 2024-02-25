@@ -9,15 +9,17 @@ export async function GET(req) {
 	const searchParams = req.nextUrl.searchParams;
 	const employmentType = searchParams.get('employment_type');
 	const position = searchParams.get('position');
-	const orderBy = searchParams.get('order_by');
+	const order = searchParams.get('order');
 	const page = searchParams.get('page');
+	const q = searchParams.get('q');
 	const size = searchParams.get('size');
 
 	const queryParams = new URLSearchParams();
 	if (employmentType) queryParams.append('employment_type', employmentType);
 	if (position) queryParams.append('position', position);
-	if (orderBy) queryParams.append('order_by', orderBy);
+	if (order) queryParams.append('order', order);
 	if (page) queryParams.append('page', page);
+	if (q) queryParams.append('q', q);
 	if (size) queryParams.append('size', size);
 
 	try {

@@ -2,15 +2,18 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { HookFormInput } from '@/components/ui/input/HookFormInput';
-import { OfficeIcon, TrashIcon } from '@public/svgs';
+import { OfficeIcon, TrashIcon, PersonIcon } from '@public/svgs';
 import {
 	useCreateDepartment,
 	useDeleteDepartment,
+	useUpdateDepartment,
 } from '../hooks/use-departments';
 import { useRouter } from 'next/navigation';
+import { ErrorLabel } from '@/components/ui/error/Errors';
+import { SearchEmployee } from '@/features/employee/components/SearchEmployee';
+import { showSuccessToast } from '@/components/ui/toast/Toast';
 import ModalWrapper from '@/components/ui/modal/ModalWrapper';
 import Button from '@/components/ui/button/Button';
-import { ErrorLabel } from '@/components/ui/error/Errors';
 
 const addDepartmentRules = {
 	required: { required: 'This field is required' },
@@ -142,6 +145,92 @@ export const DeleteDepartmentModal = ({ departmentId }) => {
 						</Button>
 					</div>
 					{error && <ErrorLabel message={error} />}
+				</ModalWrapper>
+			)}
+		</>
+	);
+};
+
+export const EditHeadModal = ({ department }) => {
+	const [open, setOpen] = useState(false);
+	const [selectedEmployee, setSelectedEmployee] = useState(null);
+	const { isLoading, updateDepartment, error } = useUpdateDepartment();
+
+	const currHead = department.head_data;
+
+	const handleCancel = () => {
+		setOpen(false);
+	};
+
+	const handleUpdate = async () => {
+		const data = {
+			name: department.name,
+			description: department.description,
+			head: selectedEmployee.id,
+		};
+		const result = await updateDepartment({
+			departmentId: department.id,
+			data,
+		});
+
+		if (result.updated) {
+			setOpen(false);
+			setSelectedEmployee(null);
+			showSuccessToast('Updated Head');
+		}
+	};
+
+	return (
+		<>
+			<button
+				onClick={() => setOpen(true)}
+				className='bg-text-placeholder py-1 px-2 rounded-md hover:bg-text-secondary hover:text-white'
+			>
+				<PersonIcon className='w-4 h-4' />
+			</button>
+
+			{open && (
+				<ModalWrapper className='w-[90%] flex flex-col h-[80vh] max-w-[550px] p-6 md:py-8 md:px-12'>
+					<p className='text-xl mb-4 md:mb-6 md:text-2xl font-bold text-text-secondary'>
+						Change Head
+					</p>
+					<section className='space-y-4 my-6'>
+						<h3 className='text-text-secondary'>Current</h3>
+						<ul>
+							<li className='font-bold sm:text-xl text-text-gray'>
+								{currHead?.name || '-'}
+							</li>
+							<li className='flex items-center gap-3'>
+								<span className='text-sm text-text-secondary'>ID:</span>
+								<span>{currHead?.employee_number || '-'}</span>
+							</li>
+						</ul>
+					</section>
+					<SearchEmployee
+						selectedEmployee={selectedEmployee}
+						setSelectedEmployee={setSelectedEmployee}
+					/>
+					<div className='flex items-center mt-auto gap-3 justify-evenly mb-4'>
+						<Button
+							onClick={handleCancel}
+							cancel
+							disabled={isLoading}
+							className='w-full'
+						>
+							Cancel
+						</Button>
+						<Button
+							onClick={handleUpdate}
+							secondary
+							disabled={!selectedEmployee || isLoading}
+							className='w-full'
+						>
+							Update
+						</Button>
+					</div>
+					{error && (
+						<p className='text-sm text-error text-center pt-3'>{error}</p>
+					)}
 				</ModalWrapper>
 			)}
 		</>

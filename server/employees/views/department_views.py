@@ -40,10 +40,10 @@ class DepartmentDetailView(APIView):
 
   def patch(self, request, id):
     department = get_object_or_404(Departments, pk=id)
-    serializer = DepartmentsSerializer(department, data=request.data)
+    serializer = DepartmentWiteSerializer(department, data=request.data)
     if serializer.is_valid():
       updated_department = serializer.save()
-      read_serializer = DepartmentsSerializer(updated_department)
+      read_serializer = DepartmentWiteSerializer(updated_department)
       return Response(read_serializer.data)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

@@ -8,3 +8,5 @@ export { default as OfficeIcon } from './OfficeIcon.svg';
 export { default as EvaluationIcon } from './EvaluationIcon.svg';
 export { default as PlusIcon } from './PlusIcon.svg';
 export { default as TrashIcon } from './TrashIcon.svg';
+export { default as SearchIcon } from './SearchIcon.svg';
+export { default as UpdateIcon } from './UpdateIcon.svg';

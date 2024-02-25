@@ -2,17 +2,24 @@ import { nextAPI } from '@/lib/fetchApi';
 import { useCallback, useState } from 'react';
 import useSWR from 'swr';
 
+export const mapOrder = {
+	dec: '-hired_date',
+	asc: 'hired_date',
+};
+
 export const useFetchEmployees = ({
 	employmentType,
 	position,
-	orderBy,
+	order,
 	page,
+	q,
 }) => {
 	const queryParams = new URLSearchParams();
 	if (employmentType) queryParams.append('employment_type', employmentType);
 	if (position) queryParams.append('position', position);
-	if (orderBy) queryParams.append('order_by', orderBy);
+	if (order) queryParams.append('order', mapOrder[order]);
 	if (page) queryParams.append('page', page);
+	if (q) queryParams.append('q', q);
 
 	return useSWR(`/employees?${queryParams}`, async (url) => {
 		const res = await nextAPI(url);

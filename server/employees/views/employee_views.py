@@ -9,35 +9,19 @@ from rest_framework import status
 from ..models import Employees
 from ..serializers import EmployeesSerializer, EmployeeWriteSerializer
 from ..utils.pagination import CustomPageNumberPagination
+from ..filters.employee_filters import EmployeeFilter
 # Create your views here.
 
 class EmployeesView(APIView):
   authentication_classes = [SessionAuthentication, TokenAuthentication]
   permission_classes = [IsAuthenticated]
+  filter_class = EmployeeFilter
 
   def get(self, request):
     queryset = Employees.objects.all()
-
-    is_on_leave = request.query_params.get('is_on_leave')
-    if is_on_leave is not None:
-      if is_on_leave.lower() in ['true']:
-        queryset = queryset.filter(is_on_leave=True)
-      elif is_on_leave.lower() in ['false']:
-        queryset = queryset.filter(is_on_leave=False)
-
-    employment_type = request.query_params.get('employment_type')
-    if employment_type is not None:
-      queryset = queryset.filter(employment_type=employment_type)
-
-    order_by = request.query_params.get('order_by', 'dec')
-    if order_by == 'dec':
-      queryset = queryset.order_by('-hired_date')
-    elif order_by == 'asc':
-      queryset = queryset.order_by('hired_date')
-
-    position = request.query_params.get('position')
-    if position is not None:
-      queryset = queryset.filter(position=position)
+    filter_set = EmployeeFilter(request.query_params, queryset=queryset)
+    if filter_set.is_valid():
+      queryset = filter_set.qs
 
     paginator = CustomPageNumberPagination()
     page = paginator.paginate_queryset(queryset, request)

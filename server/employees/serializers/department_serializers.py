@@ -15,7 +15,7 @@ class DepartmentsSerializer(serializers.ModelSerializer):
     ]
 
   def get_head_data(self, obj):
-    return {'id': obj.head.id, 'name': f"{obj.head.first_name} {obj.head.last_name}"} if obj.head else None
+    return {'id': obj.head.id, 'name': f"{obj.head.first_name} {obj.head.last_name}", 'employee_number': obj.head.employee_number} if obj.head else None
 
 
 class DepartmentWiteSerializer(serializers.ModelSerializer):

@@ -1,7 +1,11 @@
 'use client';
 import { useState } from 'react';
 import { OfficeIcon, PlusIcon } from '@public/svgs';
-import { AddDepartmentModal, DeleteDepartmentModal } from './DepartmentModals';
+import {
+	AddDepartmentModal,
+	DeleteDepartmentModal,
+	EditHeadModal,
+} from './DepartmentModals';
 
 const ListItem = ({ label, children }) => {
 	return (
@@ -24,8 +28,13 @@ export const DepartmentCard = ({ department }) => {
 				</div>
 				<ul className='space-y-2'>
 					<ListItem label='Detail'>{department.description || '-'}</ListItem>
-					<ListItem label='Employees'>{'-'}</ListItem>
-					<ListItem label='Head'>{department.head_data?.name || '-'}</ListItem>
+					{/* <ListItem label='Employees'>{'-'}</ListItem> */}
+					<div className='flex gap-3'>
+						<ListItem label='Head'>
+							{department.head_data?.name || '-'}
+						</ListItem>
+						<EditHeadModal department={department} />
+					</div>
 				</ul>
 				<div className='mt-2 flex justify-end'>
 					<DeleteDepartmentModal departmentId={department.id} />
