@@ -13,7 +13,6 @@ import {
 } from '@/util/constants';
 import { useDepartmentOptions } from '@/features/department/hooks/use-departments';
 import { useCreateEmployee } from '../hooks/use-employees';
-import { CustomToaster } from '@/components/ui/toast/Toast';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast/Toast';
 
 const rules = {
@@ -148,7 +147,6 @@ export const AddEmployeeForm = () => {
 					{isLoading ? 'Submitting...' : 'Add Employee'}
 				</Button>
 			</form>
-			<CustomToaster />
 		</>
 	);
 };

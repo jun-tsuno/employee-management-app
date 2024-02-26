@@ -3,10 +3,14 @@ import {
 	DeleteEmployeeModal,
 	EditEmployeeModal,
 	EmployeeDataItem,
+	SectionWrapper,
 } from '@/features/employee/components/EmployeeDetail';
+import {
+	EvaluationDetail,
+	NoEvaluation,
+} from '@/features/employee/components/EmployeeEvaluation';
 import { customDateFormatter } from '@/util/date-formatter';
 import { notFound } from 'next/navigation';
-import { CustomToaster } from '@/components/ui/toast/Toast';
 import Image from 'next/image';
 
 const EmployeeDetailPage = async ({ params }) => {
@@ -41,10 +45,7 @@ const EmployeeDetailPage = async ({ params }) => {
 					{employee && (
 						<div className='lg:grow grid gap-4 md:gap-6 max-w-[800px]'>
 							<div className='bg-text-placeholder rounded-md shadow-md'>
-								<section className='pb-4 md:pb-8'>
-									<h2 className='py-1 md:px-8 mb-2 text-sm px-4 text-white rounded-t-md bg-primary'>
-										Basic Information
-									</h2>
+								<SectionWrapper title='Basic Information'>
 									<div className='space-y-4 md:px-8 px-4 md:space-y-8'>
 										<div className='flex flex-col gap-4 md:flex-row md:items-center md:gap-20'>
 											<EmployeeDataItem label='First Name'>
@@ -66,11 +67,8 @@ const EmployeeDetailPage = async ({ params }) => {
 											</EmployeeDataItem>
 										</div>
 									</div>
-								</section>
-								<section className='pb-4 md:pb-8'>
-									<h2 className='py-1 mb-2 text-sm md:px-8 px-4 text-white rounded-t-md bg-primary'>
-										Employment Information
-									</h2>
+								</SectionWrapper>
+								<SectionWrapper title='Employment Information'>
 									<div className='space-y-4 px-4 md:px-8 md:space-y-8'>
 										<div className='flex flex-wrap gap-y-4 gap-x-14'>
 											<EmployeeDataItem label='Employment Type'>
@@ -92,7 +90,17 @@ const EmployeeDetailPage = async ({ params }) => {
 											</EmployeeDataItem>
 										</div>
 									</div>
-								</section>
+								</SectionWrapper>
+								<SectionWrapper title='Evaluation'>
+									{employee.evaluation_data ? (
+										<EvaluationDetail
+											evaluationData={employee.evaluation_data}
+											employeeId={employee.id}
+										/>
+									) : (
+										<NoEvaluation employeeId={employee.id} />
+									)}
+								</SectionWrapper>
 							</div>
 
 							<DeleteEmployeeModal employeeId={employee.id} />
@@ -100,8 +108,6 @@ const EmployeeDetailPage = async ({ params }) => {
 					)}
 				</div>
 			</section>
-
-			<CustomToaster />
 		</>
 	);
 };

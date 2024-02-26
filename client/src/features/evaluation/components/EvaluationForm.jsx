@@ -1,10 +1,11 @@
 'use client';
 import { useState } from 'react';
+import { useMutateEvaluation } from '../hooks/use-evaluation';
+import { showErrorToast } from '@/components/ui/toast/Toast';
+import { EvaluationSuccessModal } from './EvaluationModals';
 import NumberPicker from '@/components/ui/picker/NumberPicker';
 import Link from 'next/link';
 import Button from '@/components/ui/button/Button';
-import { useMutateEvaluation } from '../hooks/use-evaluation';
-import { showErrorToast, showSuccessToast } from '@/components/ui/toast/Toast';
 
 export const EvaluationForm = ({ employeeId, existingEvaluation }) => {
 	const [formData, setFormData] = useState({
@@ -15,6 +16,7 @@ export const EvaluationForm = ({ employeeId, existingEvaluation }) => {
 		adaptability: existingEvaluation?.adaptability || 0,
 		comment: existingEvaluation?.comment || '',
 	});
+	const [showSuccessModal, setShowSuccessModal] = useState(false);
 
 	const { isLoading, createEvaluation, updateEvaluation } =
 		useMutateEvaluation();
@@ -41,7 +43,7 @@ export const EvaluationForm = ({ employeeId, existingEvaluation }) => {
 			if (!result.created) return showErrorToast(result.error);
 		}
 
-		showSuccessToast('Successfully Evaluated');
+		setShowSuccessModal(true);
 	};
 
 	return (
@@ -110,6 +112,8 @@ export const EvaluationForm = ({ employeeId, existingEvaluation }) => {
 					</div>
 				</form>
 			</div>
+
+			{showSuccessModal && <EvaluationSuccessModal employeeId={employeeId} />}
 		</>
 	);
 };

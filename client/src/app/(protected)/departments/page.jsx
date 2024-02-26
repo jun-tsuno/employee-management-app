@@ -3,7 +3,6 @@ import {
 	DepartmentCard,
 } from '@/features/department/components/DepartmentCard';
 import { fetchDepartments } from '@/features/department/apis/department';
-import { CustomToaster } from '@/components/ui/toast/Toast';
 
 const DepartmentPage = async () => {
 	const result = await fetchDepartments();
@@ -22,8 +21,6 @@ const DepartmentPage = async () => {
 					<AddDepartmentCard />
 				</div>
 			</section>
-
-			<CustomToaster />
 		</>
 	);
 };

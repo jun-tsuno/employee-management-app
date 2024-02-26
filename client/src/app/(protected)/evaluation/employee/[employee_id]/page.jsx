@@ -1,8 +1,8 @@
-import { CustomToaster } from '@/components/ui/toast/Toast';
 import { fetchEmployee } from '@/features/employee/apis/employee';
 import { EmployeeCard } from '@/features/evaluation/components/EmployeeCard';
 import { EvaluationForm } from '@/features/evaluation/components/EvaluationForm';
 import { customDateFormatter } from '@/util/date-formatter';
+import { notFound } from 'next/navigation';
 
 export const metadata = {
 	title: 'Evaluation',
@@ -12,6 +12,8 @@ const EmployeeEvaluationPage = async ({ params }) => {
 	const employeeId = params.employee_id;
 	const result = await fetchEmployee(employeeId);
 	const employee = result?.data;
+
+	if (!employee) return notFound();
 
 	const lastEvaluatedAt =
 		employee?.evaluation_data &&
@@ -42,8 +44,6 @@ const EmployeeEvaluationPage = async ({ params }) => {
 					/>
 				</div>
 			</section>
-
-			<CustomToaster />
 		</>
 	);
 };

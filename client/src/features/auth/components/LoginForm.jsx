@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Input from '@/components/ui/input/Input';
 import Button from '@/components/ui/button/Button';
 import { signIn } from 'next-auth/react';
-import { CustomToaster, showErrorToast } from '@/components/ui/toast/Toast';
+import { showErrorToast } from '@/components/ui/toast/Toast';
 import { useRouter } from 'next/navigation';
 
 const LoginForm = () => {
@@ -59,8 +59,6 @@ const LoginForm = () => {
 					Login as a guest
 				</Button>
 			</form>
-
-			<CustomToaster />
 		</>
 	);
 };

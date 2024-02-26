@@ -8,6 +8,17 @@ import { showErrorToast, showSuccessToast } from '@/components/ui/toast/Toast';
 import ModalWrapper from '@/components/ui/modal/ModalWrapper';
 import Button from '@/components/ui/button/Button';
 
+export const SectionWrapper = ({ title, children }) => {
+	return (
+		<section className='pb-4 md:pb-8'>
+			<h2 className='py-1 mb-2 text-sm md:px-8 px-4 text-white rounded-t-md bg-primary'>
+				{title}
+			</h2>
+			{children}
+		</section>
+	);
+};
+
 export const EmployeeDataItem = ({ label, children, className }) => {
 	return (
 		<dl className={`${className ? className : ''}`}>
