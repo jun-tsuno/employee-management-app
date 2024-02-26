@@ -11,7 +11,7 @@ const SearchInput = ({ setTerm, placeholder, className, ...rest }) => {
 		}, 800);
 
 		return () => clearTimeout(delay);
-	}, [value]);
+	}, [value, setTerm]);
 
 	return (
 		<>

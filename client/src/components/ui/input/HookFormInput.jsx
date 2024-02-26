@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 
 export const HookFormInput = React.forwardRef(
@@ -31,6 +32,7 @@ export const HookFormInput = React.forwardRef(
 		);
 	}
 );
+HookFormInput.displayName = 'HookFormInput';
 
 export const HookFormCheckbox = React.forwardRef(
 	(
@@ -71,6 +73,7 @@ export const HookFormCheckbox = React.forwardRef(
 		);
 	}
 );
+HookFormCheckbox.displayName = 'HookFormCheckbox';
 
 export const HookFormDropdown = React.forwardRef(
 	({ id, name, options, label, required, className, error, ...rest }, ref) => {
@@ -102,3 +105,4 @@ export const HookFormDropdown = React.forwardRef(
 		);
 	}
 );
+HookFormDropdown.displayName = 'HookFormDropdown';
