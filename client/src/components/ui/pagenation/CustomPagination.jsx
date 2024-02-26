@@ -7,7 +7,7 @@ const CustomPagination = ({
 	setCurrentPage,
 	className,
 }) => {
-	const pageCount = Math.ceil(totalCount / pageSize);
+	const pageCount = totalCount ? Math.ceil(totalCount / pageSize) : 0;
 
 	const handlePageClick = (event) => {
 		const nextPage = event.selected + 1;
