@@ -10,7 +10,6 @@ import {
 } from '../hooks/use-departments';
 import { useRouter } from 'next/navigation';
 import { ErrorLabel } from '@/components/ui/error/Errors';
-import { SearchEmployee } from '@/features/employee/components/SearchEmployee';
 import { showSuccessToast } from '@/components/ui/toast/Toast';
 import ModalWrapper from '@/components/ui/modal/ModalWrapper';
 import Button from '@/components/ui/button/Button';
