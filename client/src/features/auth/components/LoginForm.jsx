@@ -23,6 +23,7 @@ const LoginForm = () => {
 			});
 
 			if (!res.ok) throw new Error();
+
 			router.refresh();
 			router.push('/employees');
 		} catch (error) {
