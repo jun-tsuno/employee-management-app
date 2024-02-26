@@ -84,11 +84,13 @@ const EmployeesPage = () => {
 				{isLoading && <CustomSkelton className='h-[180px]' />}
 				{!isLoading && <EmployeesTable employees={employees} />}
 
-				<CustomPagination
-					totalCount={totalCount}
-					setCurrentPage={setCurrentPage}
-					className='mt-8 md:mt-12'
-				/>
+				{totalCount > 0 && (
+					<CustomPagination
+						totalCount={totalCount}
+						setCurrentPage={setCurrentPage}
+						className='mt-8 md:mt-12'
+					/>
+				)}
 			</section>
 		</>
 	);

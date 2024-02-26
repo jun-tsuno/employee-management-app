@@ -30,11 +30,12 @@ export const authOptions = {
 							password: process.env.NEXT_PUBLIC_DEMO_PASSWORD,
 						}),
 					});
-					const result = await res.json();
 
-					if (result.error) {
-						throw new Error(result.error);
+					if (!res.ok) {
+						throw new Error('Invalid credentials');
 					}
+
+					const result = await res.json();
 
 					return {
 						id: result?.user?.id,
