@@ -32,3 +32,5 @@ export const ORDER_OPTIONS = [
 ];
 
 export const DATE_REGEX = /^\d{4}-\d{1,2}-\d{1,2}$/;
+
+export const DEFAULT_PAGE_SIZE = 15;

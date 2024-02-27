@@ -87,8 +87,9 @@ const EmployeesPage = () => {
 				{totalCount > 0 && (
 					<CustomPagination
 						totalCount={totalCount}
-						setCurrentPage={setCurrentPage}
-						className='mt-8 md:mt-12'
+						currentPage={currentPage}
+						onPageChange={(page) => setCurrentPage(page)}
+						className='mt-6'
 					/>
 				)}
 			</section>
