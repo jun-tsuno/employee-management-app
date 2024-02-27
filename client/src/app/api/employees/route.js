@@ -17,10 +17,14 @@ export async function GET(req) {
 	const queryParams = new URLSearchParams();
 	if (employmentType) queryParams.append('employment_type', employmentType);
 	if (position) queryParams.append('position', position);
-	if (order) queryParams.append('order', order);
 	if (page) queryParams.append('page', page);
 	if (q) queryParams.append('q', q);
 	if (size) queryParams.append('size', size);
+	if (order) {
+		queryParams.append('order', order);
+	} else {
+		queryParams.append('order', '-hired_date');
+	}
 
 	try {
 		const res = await serverAPI(`/employees?${queryParams}`, {
