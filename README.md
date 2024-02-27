@@ -21,6 +21,20 @@
 - Organizing folder structure is a crucial part of development(especially when working with a team). I tried this feature base folder structure to make each functionality's scope easy to anticipate (although this project is too small to enjoy the benefit of this...) `feature` folder has sub folders divided by each 'functionality', and each function-folder has sub folders of `api` `components` `hooks`. The `feature-component` is where feature specific components belong, while `components` folder is where other generic ui components(such as `Button`) belong. (Likewise, hooks)
 - I'd appreciate if you could give me your insights about this application!
 
+```
+├── app
+├── components
+├── features
+│   ├── employee
+│   │   ├── apis
+│   │   ├── components
+│   │   └── hooks
+│   ├── department
+├── hooks
+├── lib
+└── util
+```
+
 ## Built With
 server
 - `django`
