@@ -8,7 +8,7 @@ const Header = async () => {
 
 	return (
 		<>
-			<header className='w-full bg-primary text-white py-2 px-4 md:py-4 fixed'>
+			<header className='w-full bg-primary text-white z-20 py-2 px-4 md:py-4 fixed'>
 				<div className='flex items-center justify-between'>
 					<Link href='/' className='block w-fit'>
 						Employee Management System

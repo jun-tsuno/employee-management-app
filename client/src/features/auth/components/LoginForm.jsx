@@ -9,11 +9,13 @@ import { useRouter } from 'next/navigation';
 const LoginForm = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [isLoading, setIsLoading] = useState(false);
 
 	const router = useRouter();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		setIsLoading(true);
 
 		try {
 			const res = await signIn('credentials', {
@@ -21,12 +23,14 @@ const LoginForm = () => {
 				password: 'random-password',
 				redirect: false,
 			});
+			setIsLoading(false);
 
 			if (!res.ok) throw new Error();
 
 			router.refresh();
 			router.push('/employees');
 		} catch (error) {
+			setIsLoading(false);
 			return showErrorToast('Fail to login');
 		}
 	};
@@ -57,7 +61,7 @@ const LoginForm = () => {
 					/>
 				</div>
 				<Button type='submit' primary className='w-full'>
-					Login as a guest
+					{isLoading ? 'please wait...' : 'Login as a guest'}
 				</Button>
 			</form>
 		</>
