@@ -1,6 +1,6 @@
 import LoginForm from '@/features/auth/components/LoginForm';
 
-export default async function Home() {
+export default function Home() {
 	return (
 		<>
 			<div className='w-[90%] bg-white px-4 rounded-lg md:px-10 py-10 my-20 max-w-[600px] mx-auto'>
