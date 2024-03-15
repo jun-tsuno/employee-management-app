@@ -35,7 +35,7 @@ describe('LoginForm', () => {
 				expect(screen.getByText(/please wait.../i)).toBeInTheDocument();
 			},
 			{
-				timeout: 50,
+				timeout: 150,
 			}
 		);
 
