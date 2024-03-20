@@ -1,10 +1,11 @@
+'use client';
 import Link from 'next/link';
-import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { LogoutButton } from '@/features/auth/components/LogoutButton';
+import { useSession } from 'next-auth/react';
 
-const Header = async () => {
-	const session = await getServerSession(authOptions);
+const Header = () => {
+	const { data: session } = useSession(authOptions);
 
 	return (
 		<>
